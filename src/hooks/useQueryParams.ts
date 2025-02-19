@@ -5,8 +5,8 @@ const useQueryParams = () => {
     const params = new URLSearchParams(window.location.search);
 
     return {
-      CUSTOMER_ID: params.get("customerId") || "67acc42af94882ff6a7463fa",
-      AMOUNT: params.get("amount") || "100",
+      CUSTOMER_ID: params.get("customerId"),
+      AMOUNT: params.get("amount"),
       IS_STAGING: params.get("environment")?.toLowerCase() === "staging",
     };
   }, []);
