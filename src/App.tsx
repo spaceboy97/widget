@@ -8,12 +8,22 @@ import useQueryParams from "./hooks/useQueryParams";
 import { refineErrorResponse } from "./utils/refineerror";
 
 const App = () => {
-  const SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL;
+  let SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL;
   const VFD_ACCESS_TOKEN = import.meta.env.VITE_VFD_ACCESS_TOKEN;
-  const VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID;
-  const VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT;
+  let VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID;
+  let VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT;
 
-  const { CUSTOMER_ID, AMOUNT } = useQueryParams();
+  const { CUSTOMER_ID, AMOUNT, IS_STAGING } = useQueryParams();
+
+
+  //if staging param is passed, utilize staging environ ment variables instead
+  useEffect(() => {
+    if (IS_STAGING) {
+      SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL_STAGING;
+      VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID_STAGING;
+      VFD_ENVIRONMENT = import.meta.env.ITE_VFD_ENVIRONMENT_STAGING;
+    }
+  }, [IS_STAGING]);
 
   let isWidgetSet = false;
   const getRepaymentWallet = async () => {
