@@ -8,14 +8,12 @@ import useQueryParams from "./hooks/useQueryParams";
 import { refineErrorResponse } from "./utils/refineerror";
 
 const App = () => {
-  const {
-    CUSTOMER_ID,
-    VFD_ACCESS_TOKEN,
-    VFD_MERCHANT_ID,
-    VFD_ENVIRONMENT,
-    SCALE_BASE_URL,
-    AMOUNT,
-  } = useQueryParams();
+  const SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL;
+  const VFD_ACCESS_TOKEN = import.meta.env.VITE_VFD_ACCESS_TOKEN;
+  const VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID;
+  const VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT;
+
+  const { CUSTOMER_ID, AMOUNT } = useQueryParams();
 
   let isWidgetSet = false;
   const getRepaymentWallet = async () => {
