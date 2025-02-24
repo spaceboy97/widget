@@ -4,6 +4,8 @@ const useQueryParams = () => {
   return useMemo(() => {
     const params = new URLSearchParams(window.location.search);
 
+    console.log(params.get("environment"))
+
     return {
       CUSTOMER_ID: params.get("customerId"),
       AMOUNT: Number(params.get("amount")) / 100,
