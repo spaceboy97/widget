@@ -4,10 +4,11 @@ const useQueryParams = () => {
   return useMemo(() => {
     const params = new URLSearchParams(window.location.search);
 
-    console.log(params.get("environment"))
+    console.log(params.get("environment"));
 
     return {
       CUSTOMER_ID: params.get("customerId"),
+      TRXN_REF: params.get("trxnRef"),
       AMOUNT: Number(params.get("amount")) / 100,
       IS_STAGING: params.get("environment")?.toLowerCase() === "staging",
     };

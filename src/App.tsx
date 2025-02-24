@@ -15,8 +15,6 @@ const App = () => {
 
   const { CUSTOMER_ID, AMOUNT, IS_STAGING } = useQueryParams();
 
-  //if staging param is passed, utilize staging environ ment variables instead
-  console.log(IS_STAGING, "IS_STAGING", VFD_ACCESS_TOKEN);
   useEffect(() => {
     if (IS_STAGING) {
       SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL_STAGING;
@@ -27,7 +25,7 @@ const App = () => {
   }, [IS_STAGING]);
 
   let isWidgetSet = false;
-  const getRepaymentWallet = async () => {
+  const getRepaymentWidget = async () => {
     await axios
       .post(
         `${SCALE_BASE_URL}/scale/payments/fund/widget`,
@@ -47,7 +45,7 @@ const App = () => {
           return;
         }
         isWidgetSet = true;
-        triggerOnlinePayment(res.data.reference);
+        triggerOnlinePayment(res.data?.data?.reference);
       })
       .catch((err) => {
         toast.error(refineErrorResponse(err));
@@ -63,6 +61,11 @@ const App = () => {
       .get(
         SCALE_BASE_URL +
           `/scale/payments/widget/fund/${trxnRef}/${res?.reference}&method=${res?.method}`
+      )
+      .then(
+        () =>
+          (window.location.href =
+            "https://scalebyrenda-web-staging-640575896362.us-central1.run.app/auth/sign-in")
       )
       .catch(() => toast.error("failure at fund api call"));
   };
@@ -98,7 +101,7 @@ const App = () => {
 
   useEffect(() => {
     if (CUSTOMER_ID && AMOUNT) {
-      getRepaymentWallet();
+      getRepaymentWidget();
     } else {
       toast.error("Missing customer_id or amount in the query params.");
     }
