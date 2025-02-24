@@ -25,12 +25,14 @@ const App = () => {
   }, [IS_STAGING]);
 
   // let isWidgetSet = false;
-
-  const isWidgetSet = useRef(false)
+  const isWidgetSet = useRef(false);
   const amountInKobo = Number(AMOUNT) * 100;
 
-  console.log({ amountInKobo });
   const getRepaymentWidget = async () => {
+    if (isWidgetSet.current) {
+      return;
+    }
+    isWidgetSet.current = true;
     await axios
       .post(
         `${SCALE_BASE_URL}/scale/payments/fund/widget`,
@@ -46,10 +48,6 @@ const App = () => {
         }
       )
       .then((res) => {
-        if (isWidgetSet.current) {
-          return;
-        }
-        isWidgetSet.current = true;
         triggerOnlinePayment(res.data?.data?.reference);
       })
       .catch((err) => {
