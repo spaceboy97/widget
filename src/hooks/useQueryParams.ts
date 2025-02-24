@@ -6,7 +6,7 @@ const useQueryParams = () => {
 
     return {
       CUSTOMER_ID: params.get("customerId"),
-      AMOUNT: params.get("amount"),
+      AMOUNT: Number(params.get("amount")) / 100,
       IS_STAGING: params.get("environment")?.toLowerCase() === "staging",
     };
   }, []);
