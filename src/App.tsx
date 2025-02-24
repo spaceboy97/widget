@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 
 import { toast } from "react-toastify";
@@ -24,13 +24,18 @@ const App = () => {
     }
   }, [IS_STAGING]);
 
-  let isWidgetSet = false;
+  // let isWidgetSet = false;
+
+  const isWidgetSet = useRef(false)
+  const amountInKobo = Number(AMOUNT) * 100;
+
+  console.log({ amountInKobo });
   const getRepaymentWidget = async () => {
     await axios
       .post(
         `${SCALE_BASE_URL}/scale/payments/fund/widget`,
         {
-          amount: Number(AMOUNT),
+          amount: amountInKobo,
           customer_id: CUSTOMER_ID,
         },
         {
@@ -41,10 +46,10 @@ const App = () => {
         }
       )
       .then((res) => {
-        if (isWidgetSet) {
+        if (isWidgetSet.current) {
           return;
         }
-        isWidgetSet = true;
+        isWidgetSet.current = true;
         triggerOnlinePayment(res.data?.data?.reference);
       })
       .catch((err) => {
