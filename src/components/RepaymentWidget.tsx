@@ -70,7 +70,8 @@ export const RepaymentWidget = () => {
                 },
             });
             widgetLaunch.pay({ amount: AMOUNT });
-        } catch (error) {
+        } catch (err) {
+            console.log(err)
             toast.error("Error launching payment widget");
         }
     };
