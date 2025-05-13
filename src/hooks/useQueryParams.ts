@@ -11,7 +11,7 @@ const useQueryParams = () => {
       TYPE: params.get("type"),
       TOKEN: params.get("token"),
       REPAYMENT_IDS: params.get("repaymentIds"),
-      IS_STAGING: params.get("environment")?.toLowerCase() === "staging",
+      ENV: params.get("environment")?.toLowerCase(), //"staging" | "uat",
     };
   }, []);
 };
