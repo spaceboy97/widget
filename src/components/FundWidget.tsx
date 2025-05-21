@@ -26,6 +26,9 @@ export const FundWidget = () => {
             break;
           case "uat":
             SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL_UAT;
+            VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID_STAGING;
+            VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT_STAGING;
+            VFD_ACCESS_TOKEN = import.meta.env.VITE_VFD_ACCESS_TOKEN_STAGING;
             break;
     
           default:
