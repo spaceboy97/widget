@@ -53,7 +53,7 @@ export const PaymentWidget = () => {
           (window.location.href =
             "https://scalebyrenda-web-staging-640575896362.us-central1.run.app/auth/sign-in")
       )
-      .catch(() => toast.error("failure at fund api call"));
+      .catch(() => toast.error("failure to compelete payment"));
   };
 
   // Trigger the payment widget after fetching the necessary params
