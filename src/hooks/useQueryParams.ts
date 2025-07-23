@@ -5,6 +5,7 @@ const useQueryParams = () => {
     const params = new URLSearchParams(window.location.search);
 
     return {
+      USER_ID: params.get("userId"),
       CUSTOMER_ID: params.get("customerId"),
       TRXN_REF: params.get("trxnRef"),
       AMOUNT: Number(params.get("amount")) / 100,
