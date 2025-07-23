@@ -12,16 +12,27 @@ export const PaymentWidget = () => {
   let VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID;
   let VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT;
 
-  const { USER_ID, AMOUNT, IS_STAGING, TRXN_REF } = useQueryParams();
+  const { USER_ID, AMOUNT, TRXN_REF ,ENV} = useQueryParams();
 
   useEffect(() => {
-    if (IS_STAGING) {
-      SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL_STAGING;
-      VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID_STAGING;
-      VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT_STAGING;
-      VFD_ACCESS_TOKEN = import.meta.env.VITE_VFD_ACCESS_TOKEN_STAGING;
+    switch (ENV) {
+      case "staging":
+        SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL_STAGING;
+        VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID_STAGING;
+        VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT_STAGING;
+        VFD_ACCESS_TOKEN = import.meta.env.VITE_VFD_ACCESS_TOKEN_STAGING;
+        break;
+      case "uat":
+        SCALE_BASE_URL = import.meta.env.VITE_SCALE_BASE_URL_UAT;
+        VFD_MERCHANT_ID = import.meta.env.VITE_VFD_MERCHANT_ID_STAGING;
+        VFD_ENVIRONMENT = import.meta.env.VITE_VFD_ENVIRONMENT_STAGING;
+        VFD_ACCESS_TOKEN = import.meta.env.VITE_VFD_ACCESS_TOKEN_STAGING;
+        break;
+
+      default:
+        break;
     }
-  }, [IS_STAGING]);
+  }, [ENV]);
 
   const isWidgetSet = useRef(false);
 
