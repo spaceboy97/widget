@@ -51,7 +51,7 @@ export const PaymentWidget = () => {
       .then(
         () =>
           (window.location.href =
-            "https://scalebyrenda-web-staging-640575896362.us-central1.run.app/auth/sign-in")
+            "https://renda.co/")
       )
       .catch(() => toast.error("failure to compelete payment"));
   };
